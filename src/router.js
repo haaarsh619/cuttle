@@ -80,8 +80,8 @@ const getGameState = async (to) => {
   gameStateIndex = isValidGameStateIndex ? gameStateIndex : -1;
   try {
     const response = await gameStore.requestGameState(gameId, gameStateIndex, to);
-    // A 401 resolves with a message string rather than a game state; in that case
-    // mustReauthenticate is set and GameView shows the ReauthenticateDialog
+    // A 401 resolves without a game state; in that case mustReauthenticate
+    // is set and GameView shows the ReauthenticateDialog
     const gamePlayers = response?.game?.players;
     if (gamePlayers && !gamePlayers.some(({ username }) => username === authStore.username)) {
       return { name: ROUTE_NAME_SPECTATE, params: { gameId } };
